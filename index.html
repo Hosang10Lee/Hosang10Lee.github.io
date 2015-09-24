@@ -16,20 +16,26 @@
 
 var canvas = document.getElementById("myCanvas");
 var fine = [];
-fine[0] = 0;
-fine[1] = 2;
-fine[2] = 0;
-fine[3] = 2;
-fine[4] = 2;
-fine[5] = 4;
-fine[6] = 4;
-fine[7] = 6;
-fine[8] = 2;
-fine[9] = 6;
-fine[10] = 6;
+fine[0] = 0; //Younghan
+fine[1] = 2; //Yujin
+fine[2] = 0; //JimmyOhn
+fine[3] = 2; //Hyunil
+fine[4] = 2; //Junsoo
+fine[5] = 4; //Chihyoung
+fine[6] = 4; //Hosang
+fine[7] = 6; //Dongyeon
+fine[8] = 2; //Jaewon
+fine[9] = 6; //Jinyoun
+fine[10] = 6; //Taejong
 var x = 100;
 var y = 500;
-var names = ["Younghan","Yujin","JimmyOhn","Hyunil","Junsoo","Chiyoung", "Hosang", "dongyeon", "Jaewon","Jinyoung","Taejong"];
+var names = ["Younghan","Yujin","JimmyOhn","Hyunil","Junsoo","Chiyoung", "Hosang", "Dongyeon", "Jaewon","Jinyoung","Taejong"];
+
+var total;
+total = 0;
+for(var i=0; i<fine.length; i++) {
+	total += fine[i];
+}
 
 var ctx = canvas.getContext("2d");
 
@@ -80,6 +86,24 @@ for(var i=0; i<names.length; i++) {
 	x+= 100;
 	y= 500;
 }
-
+x+=100;
+y= 500;
+ctx.textAlign = "center";
+ctx.font = "10px Comic Sans MS";
+ctx.fillText("Total",x,y);
+y-=20;
+for(var i=0; i<total; i++) {
+	var point = new obelisk.Point(x, y);
+	var pixelView = new obelisk.PixelView(canvas, point);
+	var dimension = new obelisk.CubeDimension(10, 10, 10);
+	var color = new obelisk.CubeColor().getByHorizontalColor(obelisk.ColorPattern.getRandomComfortableColor());
+	var cube = new obelisk.Cube(dimension, color);
+	pixelView.renderObject(cube);
+	y-=10;
+}
+y-=10;
+ctx.textAlign = "center";
+ctx.font = "10px Comic Sans MS";
+ctx.fillText(total*5000+" WON",x,y);
 
 </script>
