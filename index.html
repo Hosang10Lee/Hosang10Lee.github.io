@@ -7,28 +7,79 @@
 </head>
 
 <body>
-	<canvas id="canvas-demo" width="1500" height="400"></canvas>
+	<canvas id="myCanvas" width="1500" height="600" style="border:1px solid #d3d3d3;"></canvas>
 </body>
 </html>
 <script>
 // get DOM or jQuery element
 // like: $('#canvas-demo')
-var canvas = document.getElementById('canvas-demo');
 
-// create pixel view container in point
-var point = new obelisk.Point(270, 120);
-var pixelView = new obelisk.PixelView(canvas, point);
+var canvas = document.getElementById("myCanvas");
+var fine = [];
+fine[0] = 0;
+fine[1] = 2;
+fine[2] = 0;
+fine[3] = 2;
+fine[4] = 2;
+fine[5] = 4;
+fine[6] = 4;
+fine[7] = 6;
+fine[8] = 2;
+fine[9] = 6;
+fine[10] = 6;
+var x = 100;
+var y = 500;
+var names = ["Younghan","Yujin","JimmyOhn","Hyunil","Junsoo","Chiyoung", "Hosang", "dongyeon", "Jaewon","Jinyoung","Taejong"];
 
-// create dimension instance
-var dimension = new obelisk.CubeDimension(120, 200, 60);
-// create color instance
-var color = new obelisk.CubeColor().getByHorizontalColor(obelisk.ColorPattern.GRAY);
+var ctx = canvas.getContext("2d");
 
-// create cube primitive
-var cube = new obelisk.Cube(dimension, color);
-// create cube primitive wihtout border
-//var cube = new obelisk.Cube(dimension, color, false);
+	ctx.textAlign = "center";
+	ctx.font = "30px Comic Sans MS";
+	ctx.fillText("51PC Penalty Status",500, 100);
+	ctx.textAlign = "left";
+	ctx.font = "15px Comic Sans MS";
+	ctx.fillText("5000 WON",170, 150);
 
-// render primitive to view
-pixelView.renderObject(cube);
+	var point = new obelisk.Point(150, 140);
+	var pixelView = new obelisk.PixelView(canvas, point);
+	var dimension = new obelisk.CubeDimension(10, 10, 10);
+	var color = new obelisk.CubeColor().getByHorizontalColor(obelisk.ColorPattern.getRandomComfortableColor());
+	var cube = new obelisk.Cube(dimension, color);
+	pixelView.renderObject(cube);
+
+
+for(var i=0; i<names.length; i++) {
+	ctx.textAlign = "center";
+	ctx.font = "10px Comic Sans MS";
+	ctx.fillText(names[i],x,y);
+	y-= 40;
+	for(var j=0; j<fine[i]; j++) {
+		// create pixel view container in point
+		var point = new obelisk.Point(x, y);
+		var pixelView = new obelisk.PixelView(canvas, point);
+
+		// create dimension instance
+		var dimension = new obelisk.CubeDimension(20, 20, 20);
+		// create color instance
+		var color = new obelisk.CubeColor().getByHorizontalColor(obelisk.ColorPattern.getRandomComfortableColor());
+
+		// create cube primitive
+		var cube = new obelisk.Cube(dimension, color);
+		// create cube primitive wihtout border
+		//var cube = new obelisk.Cube(dimension, color, false);
+
+		// render primitive to view
+		pixelView.renderObject(cube);
+		y-=20;		
+	}
+	y-=10;
+	ctx.textAlign = "center";
+	ctx.font = "10px Comic Sans MS";
+	ctx.fillText(fine[i]*5000+" WON",x,y);
+
+	x+= 100;
+	y= 500;
+}
+
+
 </script>
